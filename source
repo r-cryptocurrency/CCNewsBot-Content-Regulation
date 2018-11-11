@@ -1,0 +1,14 @@
+import praw
+import time
+reddit = praw.Reddit(client_id = 'its_client_id',
+                     client_secret = 'its_client_secret',
+                     user_agent = 'its_user_agent',
+                     username = 'ccnewsbot',
+                     password = 'its_password')
+
+ccnewsbotredditobject = reddit.redditor('ccnewsbot')
+
+for submission in ccnewsbotredditobject.submissions.new(limit=1000):
+    if submission.score <= 0 and submission.created_utc >= time.time() - 86400:
+        #submission.mod.remove() # Uncomment this line when you want the bot to do something.
+        print("found something") # Comment this line out when you're ready to schedule the bot and let it run in the background.
